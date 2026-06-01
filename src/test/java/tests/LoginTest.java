@@ -3,6 +3,8 @@ package tests;
 import POs.LoginFormPO;
 import POs.LoginSuccessPO;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -34,12 +36,19 @@ public class LoginTest extends DriverLifeCycle {
         assertTrue(login.invalidBoxisPresent());
     }
 
-    @Test
-    public void testLoginWithEmptyFields() {
+    @ParameterizedTest
+    @CsvSource({
+            "invalid,invalid",  // invalid credentials
+            "user,''",  // empty password
+            "'',user",  // empty username
+            "'',''",  // empty credentials
+            "user,invalidPassword",  // invalid password
+            "invalidUser,user"  //  invalid username
+    })
+    public void testLoginWithInvalidCredentials(String username, String password) {
         login = new LoginFormPO(driver);
-        login.with("", "");
+        login.with(username, password);
         System.out.println(driver.getCurrentUrl());
-        // we remain in the login page
         assertTrue(login.invalidBoxisPresent());
     }
 
