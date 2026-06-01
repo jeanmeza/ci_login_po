@@ -6,17 +6,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class DriverLifeCycle {
-    
-protected WebDriver driver;
+
+    protected WebDriver driver;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         // declaration and instantiation of objects/variables
         driver = new ChromeDriver();
     }
 
     @AfterEach
-    public void teardown(){
+    public void teardown() {
         // close Chrome
         driver.close();
     }

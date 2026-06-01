@@ -1,27 +1,27 @@
 package tests;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.Test;
-
-
 import POs.LoginFormPO;
 import POs.LoginSuccessPO;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Unit test for simple App.
  */
 public class LoginTest extends DriverLifeCycle {
- 
+
     private LoginFormPO login;
     private LoginSuccessPO loginSuccess;
 
     @Test
-    public void testLoginOk() {
+    public void testLoginOk() throws InterruptedException {
         login = new LoginFormPO(driver);
         login.with("user", "user");
         System.out.println(driver.getCurrentUrl());
         // we go to the login-success page
         loginSuccess = new LoginSuccessPO(driver);
+        Thread.sleep(1000L);
         assertTrue(loginSuccess.successBoxIsPresent());
     }
 
@@ -31,7 +31,7 @@ public class LoginTest extends DriverLifeCycle {
         login.with("user", "error");
         System.out.println(driver.getCurrentUrl());
         // we remain in the login page
-        assertTrue(login.invalidBoxisPresent()); 
+        assertTrue(login.invalidBoxisPresent());
     }
 
     @Test
