@@ -27,15 +27,6 @@ public class LoginTest extends DriverLifeCycle {
         assertTrue(loginSuccess.successBoxIsPresent());
     }
 
-    @Test
-    public void testLoginNotOk() {
-        login = new LoginFormPO(driver);
-        login.with("user", "error");
-        System.out.println(driver.getCurrentUrl());
-        // we remain in the login page
-        assertTrue(login.invalidBoxisPresent());
-    }
-
     @ParameterizedTest
     @CsvSource({
             "invalid,invalid",  // invalid credentials
